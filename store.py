@@ -70,19 +70,18 @@ for i in range(n+1):
 fibonRecursive(n)
 print("fibonacchi recursive ", fibonacchi)
 
+#login = input("Please enter your user name: ")#password = input("Enter you passowd: ")
 
-#login = input("Please enter your user name")
-#password = input("Enter you passowd")
 
 #call encrypt password(password)
 #fibonacchi = []
 
 def storeInAlphabet():
-  print("\nTask 2")
+
   alphabet = []
   for n in range(97, 123):
     alphabet.append(chr(n))
-  print(alphabet)
+  #print(alphabet)
   return alphabet
 
 def encryptPass():
@@ -95,10 +94,18 @@ def encryptPass():
     #print(alphabet)
   #Fill in the CYPHER
   alphabet = storeInAlphabet()
-  cipher = dict(zip(fibonacchi, alphabet))
+  print("Alphabet ", alphabet)
+  cipher = dict(zip(alphabet, fibonacchi))
   #print (cipher)
   return cipher
 print("Cypher ",encryptPass())
+
+import pandas as pd
+cipher = encryptPass()
+
+df = pd.DataFrame.from_dict(cipher, orient='index', columns=['Letter'])
+
+print(df)
 
 #create a list of Fibonacchin numbers
 
