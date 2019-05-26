@@ -1,46 +1,77 @@
 # For an online store, this would be a minimum of 6 possible menus that provide functionality such as purchasing and creating reports.
 
+textbooks = {"Introduction to Programming", "MySQL", "Web Development"}
+stationary = {"Envelopes", "Staples", "Scissors", "Staple Removers"}
+pensAndPensils = {"Ball pen blue", "Gell pen blue", "Ball pen black", "Ball pen black"}
 
+Laptops = {"Dell-123", "Compaq-234", "Dell-124", "Dell-125", "HP-888", "HP - 777"}
 
-#Purchasing
+markersAndHighlighters = {"Expo Dry Erase markers", "Low Odor Markers", "BIC 6pk highlighters", "Sharpie 3pk Highlighers"}
+devicesAndPrinters = {"Brother Wireless Printer", "HP OfficeJet", }
+paperAndPrintingSupps = {"Copy Paper", "Laser Printer Paper", "InkJet Paper"}
 
+electronics = Laptops | devicesAndPrinters
+allStationary = stationary | pensAndPensils|markersAndHighlighters
+#set of all items in the store
+everything = set.union(textbooks, stationary, pensAndPensils, Laptops, markersAndHighlighters, devicesAndPrinters, paperAndPrintingSupps)
+
+import pprint
 def welcomeMessage():
-  print("Welcome to Iryna's School Supply store!\n");
-  print("Let us know what brings you here. Please choose one of the following")
+  print("\nWelcome to Iryna's School Supply store!\n");
+  print("Let us know what brings you here. Please choose one of the following\n")
 
-  choice =  int(input("Choolse from one of the following: 1. textbooks, 2.Stationary, 3.Pens and pensils, 4. Laptops, 5. Markers and Highlighters, 6. Computers and printers, 7.paper and printing supplies, 8. Show me everything"))
-
-  return choice
-
-def showTheItems(choice):
-  #Dictionaries {item: price}
-
-  textbooks = {}
-  stationary = {}
-  pensAndPensils = {}
-  Laptops = {}
-  markersAndHighlighters = {}
-  computersAndPrinters = {}
-  paperAndPrintingSupps = {}
-
+  choice =  int(input("Choolse from one of the following: \n1. Textbooks \n2. Stationary \n3. Pens and pensils \n4. Laptops \n5. Markers and Highlighters \n6. Devices and printers \n7. Paper and printing supplies \n8. Show all electronics \n9. Show all stationary & writing supplies \n10. Show me everything\n\n"))
+  from itertools import chain
 
   switcher = {
-    1: "",#show set of textbooks
+    1: textbooks,#show set of textbooks
 
-    2: "", #show set of Stationary
+    2: stationary, #show set of Stationary
 
-    3: "", #show set of Pends and pensils
+    3: pensAndPensils, #show set of Pends and pensils
 
-    4: "",#show set of Laptops
+    4: Laptops,#show set of Laptops
 
-    5: "",#show set of markers and highlighters
+    5: markersAndHighlighters,#show set of markers and highlighters
 
-    6: "",#show set of computers and printers
+    6: devicesAndPrinters,#show set of computers and printers
 
-    7: "",#show  set of paper and printing supplies
+    7: paperAndPrintingSupps,#show  set of paper and printing supplies
 
-    8: "",#show a Union of all the sets
+    8: electronics,#show a Union of computers and laptops
+
+    9: allStationary,#union of Stationary and pens and pencils
+    10: everything
   }
+  pp = pprint.PrettyPrinter(indent=2)
+  print("Your choose",pp.pprint(switcher.get(choice)))
+
+#import sys
+#sys.setrecursionlimit(1500)
+def convertCurrency(decimal):
+  # Function to print binary number for the input decimal using recursion
+  if decimal==0:
+    return ''
+  else:
+    return convertCurrency(decimal//2) + str(decimal%2)
+  #if decimal > 1:
+   #   convertCurrency(decimal//2)
+  #return(decimal % 2)
+
+
+# decimal number
+#dec = 34
+#convertCurrency(dec)
+#print("The decimal number is ", decim)
+
+currentInput = int(input("Tell us how many US dollars you would like to conver to bitcoins \n"))
+bitcoins = convertCurrency(currentInput)
+#This programs assumes you can divide binary bitcoins just like a regular money
+print("You have ", bitcoins, " bitcoins to spent")
+
+
+
+  #return choice
 
 
 #--------LOGGING IN, ENCRYPTION AND CYPHER---
@@ -68,7 +99,7 @@ def fibonRecursive(n):
 for i in range(n+1):
   fibonacchi.append(-1);
 fibonRecursive(n)
-print("fibonacchi recursive ", fibonacchi)
+#print("fibonacchi recursive ", fibonacchi)
 
 #login = input("Please enter your user name: ")#password = input("Enter you passowd: ")
 
@@ -84,43 +115,41 @@ def storeInAlphabet():
   #print(alphabet)
   return alphabet
 
-def encryptPass():
-  #user fibonacchi and Recursion
+def createCipher():
 
-  #Fill the dictionary with letters and
-  #fibonacchi = fibonRecursive(26)
   cipher = {};
 
-    #print(alphabet)
-  #Fill in the CYPHER
   alphabet = storeInAlphabet()
-  print("Alphabet ", alphabet)
+  #print("Alphabet ", alphabet)
   cipher = dict(zip(alphabet, fibonacchi))
   #print (cipher)
   return cipher
-print("Cypher ",encryptPass())
+#print("Cypher ",encryptPass())
 
 import pandas as pd
-cipher = encryptPass()
+cipher = createCipher()
 
 df = pd.DataFrame.from_dict(cipher, orient='index', columns=['Letter'])
 
-print(df)
+#print(df)
 
-#create a list of Fibonacchin numbers
+#encodes the password
+import numpy as np
+def encode(password):
 
-
-#Creating a list of 26 fibonacchin numbers
-#fibonacchi recursive
-
-
-
-
-
-
-
-
-
+  encodedWord = ""
+  cipher = createCipher()
+  digitArray = []
+  for i in password:
+    if i in cipher.keys():
+      digitArray.append(cipher.get(i))
+  print("The encoded numbers are: ")
+  #testing the coded characters
+  print(digitArray)
+  codeArr= np.array(digitArray)
+  product = np.prod(digitArray)
+  return product
+  #return digitArray
 
 
 #-------------CART OPERATIONS--------------
@@ -135,7 +164,7 @@ def addToCart(item):
 #testing adding to the
 myCart = {"cat"}
 addToCart("dog")
-print(cart)
+#print(cart)
 
 #retur void just removes
 def removeFromCart(item):
