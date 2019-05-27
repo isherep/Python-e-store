@@ -1,26 +1,31 @@
 # For an online store, this would be a minimum of 6 possible menus that provide functionality such as purchasing and creating reports.
+import pprint
 
-textbooks = {"Introduction to Programming", "MySQL", "Web Development"}
-stationary = {"Envelopes", "Staples", "Scissors", "Staple Removers"}
-pensAndPensils = {"Ball pen blue", "Gell pen blue", "Ball pen black", "Ball pen black"}
+textbooks = {"Introduction to Programming", "MySQL", "Web Development","Programming in C/C++", "Web Design", "Project Management", "Writing programs in Java", "JavaScript and jQuery", "Discrete Mathematics", "Brain Friendly Android Developement", "Cloud Computing", "English 101", "Agile processes", "Database Systems" }
 
-Laptops = {"Dell-123", "Compaq-234", "Dell-124", "Dell-125", "HP-888", "HP - 777"}
+stationary = {"Envelopes", "Staples", "Scissors", "Staple Removers", "Hole punchers", "Supply container", "Pencil cup"}
+
+pensAndPensils = {"Ball pen blue", "Gell pen blue", "Ball pen black", "Ball pen black", "Red ball pen", "Red gell pen"}
+
+Laptops = {"Dell-123", "Compaq-234", "Dell-124", "Dell-125", "HP-888", "HP - 777", "Acer-123", "Mac 8GB", "Mac 16GB"}
 
 markersAndHighlighters = {"Expo Dry Erase markers", "Low Odor Markers", "BIC 6pk highlighters", "Sharpie 3pk Highlighers"}
-devicesAndPrinters = {"Brother Wireless Printer", "HP OfficeJet", }
-paperAndPrintingSupps = {"Copy Paper", "Laser Printer Paper", "InkJet Paper"}
+
+devicesAndPrinters = {"Brother Wireless Printer-9", "HP OfficeJet", "Brother Wireless Printer-11", "HP OfficeJet Wireless"}
+paperAndPrintingSupps = {"Copy Paper", "Laser Printer Paper", "InkJet Paper", "Color Paper"}
 
 electronics = Laptops | devicesAndPrinters
 allStationary = stationary | pensAndPensils|markersAndHighlighters
 #set of all items in the store
 everything = set.union(textbooks, stationary, pensAndPensils, Laptops, markersAndHighlighters, devicesAndPrinters, paperAndPrintingSupps)
+#print(type(textbooks))
 
-import pprint
+
 def welcomeMessage():
   print("\nWelcome to Iryna's School Supply store!\n");
   print("Let us know what brings you here. Please choose one of the following\n")
-
-  choice =  int(input("Choolse from one of the following: \n1. Textbooks \n2. Stationary \n3. Pens and pensils \n4. Laptops \n5. Markers and Highlighters \n6. Devices and printers \n7. Paper and printing supplies \n8. Show all electronics \n9. Show all stationary & writing supplies \n10. Show me everything\n\n"))
+def makeSelection():
+  choice =  int(input("Choolse from one of the following: \n1. Textbooks \n2. Stationary \n3. Pens and pensils \n4. Laptops \n5. Markers and Highlighters \n6. Devices and printers \n7. Paper and printing supplies \n8. All electronics \n9. All stationary & writing supplies \n10. All departments \n\n"))
   from itertools import chain
 
   switcher = {
@@ -44,7 +49,8 @@ def welcomeMessage():
     10: everything
   }
   pp = pprint.PrettyPrinter(indent=2)
-  print("Your choose",pp.pprint(switcher.get(choice)))
+
+  return switcher.get(choice)
 
 #import sys
 #sys.setrecursionlimit(1500)
@@ -64,10 +70,10 @@ def convertCurrency(decimal):
 #convertCurrency(dec)
 #print("The decimal number is ", decim)
 
-currentInput = int(input("Tell us how many US dollars you would like to conver to bitcoins \n"))
-bitcoins = convertCurrency(currentInput)
+#currentInput = int(input("Tell us how many US dollars you would like to conver to bitcoins \n"))
+#bitcoins = convertCurrency(currentInput)
 #This programs assumes you can divide binary bitcoins just like a regular money
-print("You have ", bitcoins, " bitcoins to spent")
+#print("You have ", bitcoins, " bitcoins to spent")
 
 
 
@@ -164,8 +170,30 @@ def addToCart(item):
 #testing adding to the
 myCart = {"cat"}
 addToCart("dog")
-#print(cart)
+print(cart)
+
+#create combinations of similar items from other department
+from itertools import combinations
+import random
+#Returns a list of suggested products
+def showSuggestions():
+  #create combinations of everythig set
+  result = combinations(everything, 5)
+  #randomly print one combination to the user
+  print("People also bought ")
+  #print("Number of combinations", len(list(result)))
+  #change hardcoded ma to the length of combinations
+  randomSuggestion = random.randint(1,1533939-1)
+  #print(list(result)[randomSuggestion])
+  #for l in list(result):
+	 # print(l)
+  return list(result)[150001]
 
 #retur void just removes
 def removeFromCart(item):
   cart.remove(item)
+
+
+
+def getEverything():
+  return everything
