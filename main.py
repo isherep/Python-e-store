@@ -59,7 +59,7 @@ def checkOut():
   pp.pprint(cart)
 
 checkOut()
-
+import random
 #Generates permutations of the usernames
 from itertools import permutations
 def createUserName():
@@ -72,22 +72,26 @@ def createUserName():
 
   userName = {firstName, lastName, superHero}
 
-  usernamesPermuts = permutations(userName)
+  userNamesPermuts = list(permutations(userName))
+  #print("Length pf permutations", len(list(userNamesPermuts)))
   print("These are possible user names for you: \n")
-  for i in usernamesPermuts:
-    print(i)
 
+  count = 0
+  for i in userNamesPermuts:
+    count += 1
+    print(count, i)
+  #permutsList = list(userNamesPermuts)
+  print("Length of permutations", len(userNamesPermuts))
+  choice = int(input("Please choose one: \n"))
+  userNameWords = userNamesPermuts[choice]
+  print(userNameWords)
+  userName = ""
+  for word in userNameWords:
+    userName += word
+    userName += str(random.randint(0, 50))
+  print(userName)
+  #print("UserNameList", userNamesList)
 createUserName()
-
-
-
-
-
-
-
-
-
-
 
 
 #Call this after user places something in the cart
