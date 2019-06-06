@@ -1,56 +1,81 @@
 # For an online store, this would be a minimum of 6 possible menus that provide functionality such as purchasing and creating reports.
+
 import pprint
+import Data
+choice =0
+pp = pprint.PrettyPrinter(indent=3)
 
-textbooks = {"Introduction to Programming", "MySQL", "Web Development","Programming in C/C++", "Web Design", "Project Management", "Writing programs in Java", "JavaScript and jQuery", "Discrete Mathematics", "Brain Friendly Android Developement", "Cloud Computing", "English 101", "Agile processes", "Database Systems" }
 
-stationary = {"Envelopes", "Staples", "Scissors", "Staple Removers", "Hole punchers", "Supply container", "Pencil cup"}
-
-pensAndPensils = {"Ball pen blue", "Gell pen blue", "Ball pen black", "Ball pen black", "Red ball pen", "Red gell pen"}
-
-Laptops = {"Dell-123", "Compaq-234", "Dell-124", "Dell-125", "HP-888", "HP - 777", "Acer-123", "Mac 8GB", "Mac 16GB"}
-
-markersAndHighlighters = {"Expo Dry Erase markers", "Low Odor Markers", "BIC 6pk highlighters", "Sharpie 3pk Highlighers"}
-
-devicesAndPrinters = {"Brother Wireless Printer-9", "HP OfficeJet", "Brother Wireless Printer-11", "HP OfficeJet Wireless"}
-paperAndPrintingSupps = {"Copy Paper", "Laser Printer Paper", "InkJet Paper", "Color Paper"}
-
-electronics = Laptops | devicesAndPrinters
-allStationary = stationary | pensAndPensils|markersAndHighlighters
-#set of all items in the store
-everything = set.union(textbooks, stationary, pensAndPensils, Laptops, markersAndHighlighters, devicesAndPrinters, paperAndPrintingSupps)
 #print(type(textbooks))
 
-
 def welcomeMessage():
-  print("\nWelcome to Iryna's School Supply store!\n");
-  print("Let us know what brings you here. Please choose one of the following\n")
+  #for i in range(20):
+  print("\n\n", 20 * "<*>-")
+  print( 20*"~~~~")
+
+  print(10*" ", "Welcome to Iryna's School Supply store!");
+  print( 20*"~~~~")
+  print(20 * "<*>-")
+  #print("\nLet us know what brings you here. Please choose one of the following\n")
+
+
+def convertCurr():
+  choice = int(input("\nWould you like to convert your US dollars? \n1. Yes \n2. Not right now \n\n"))
+  while(choice >=1 and choice <=2 ):
+    if(choice == 1):
+      currentInput = int(input("Tell us how many US dollars you would like to conver to bitcoins \n"))
+      bitcoins = convertCurrency(currentInput)
+      print("\nYou have ", bitcoins, " in your budget.")
+      print("\n-------------------------------------\n")
+      break
+    elif choice == 2:
+      print("\nNo worries, you will be able to do it during the payment process. Just remmember the prices are in bitcoins")
+      break
+    else:
+      print("\nOnly 1(Yes) and 2(No) are valid choices")
+      #choice = input("Would you like to convert your US dollars? \n1. Yes \n2. Not right now \n")
+
+
+from itertools import chain
+
+def printSelection():
+  print("\nLet us know what brings you here. Please choose one of the following\n")
+  print("Choolse from one of the following: \n1. Textbooks \n2. Stationary \n3. Pens and pensils \n4. Laptops \n5. Markers and Highlighters \n6. Devices and printers \n7. Paper and printing supplies \n8. All electronics \n9. All stationary & writing supplies \n10. All departments \n0.Exit \n\n")
+
+
+
 def makeSelection():
-  choice =  int(input("Choolse from one of the following: \n1. Textbooks \n2. Stationary \n3. Pens and pensils \n4. Laptops \n5. Markers and Highlighters \n6. Devices and printers \n7. Paper and printing supplies \n8. All electronics \n9. All stationary & writing supplies \n10. All departments \n\n"))
-  from itertools import chain
+  #choice = printSelection()
+  choice = int(input("Please select one: "))
+  while choice !=0:
+    switcher = {
+      1: Data.getTextbooks(),#show set of textbooks
 
-  switcher = {
-    1: textbooks,#show set of textbooks
+      2: Data.getStationary(), #show set of Stationary
 
-    2: stationary, #show set of Stationary
+      3: Data.getPensAndPensils(), #show set of Pends and pensils
 
-    3: pensAndPensils, #show set of Pends and pensils
+      4: Data.getLaptops(),#show set of Laptops
 
-    4: Laptops,#show set of Laptops
+      5: Data.getMarkersAndHighlighters(),#show set of markers and highlighters
 
-    5: markersAndHighlighters,#show set of markers and highlighters
+      6: Data.getDevicesAndPrinters(),#show set of computers and printers
 
-    6: devicesAndPrinters,#show set of computers and printers
+      7: Data.getPaperAndPrintingSupps(),#show  set of paper and printing supplies
 
-    7: paperAndPrintingSupps,#show  set of paper and printing supplies
+      8: Data.getElectronics(),#show a Union of computers and laptops
 
-    8: electronics,#show a Union of computers and laptops
+      9: Data.getAllStationary(),#union of Stationary and pens and pencils
+      10: Data.getEverything(),
 
-    9: allStationary,#union of Stationary and pens and pencils
-    10: everything
-  }
-  pp = pprint.PrettyPrinter(indent=2)
+      0: set({})
+    }
 
-  return switcher.get(choice)
+    #if switcher.get(choice) != None:
+    return switcher.get(choice)
+    #else:
+     # return set({})
+
 
 #import sys
 #sys.setrecursionlimit(1500)
@@ -60,24 +85,6 @@ def convertCurrency(decimal):
     return ''
   else:
     return convertCurrency(decimal//2) + str(decimal%2)
-  #if decimal > 1:
-   #   convertCurrency(decimal//2)
-  #return(decimal % 2)
-
-
-# decimal number
-#dec = 34
-#convertCurrency(dec)
-#print("The decimal number is ", decim)
-
-#currentInput = int(input("Tell us how many US dollars you would like to conver to bitcoins \n"))
-#bitcoins = convertCurrency(currentInput)
-#This programs assumes you can divide binary bitcoins just like a regular money
-#print("You have ", bitcoins, " bitcoins to spent")
-
-
-
-  #return choice
 
 
 #--------LOGGING IN, ENCRYPTION AND CYPHER---
@@ -153,7 +160,7 @@ def encode(password):
   #testing the coded characters
   print(digitArray)
   codeArr= np.array(digitArray)
-  product = np.prod(digitArray)
+  product = np.prod(codeArr)
   return product
   #return digitArray
 
@@ -167,10 +174,6 @@ def addToCart(item):
   cart.add(item)
   #return cart
 
-#testing adding to the
-myCart = {"cat"}
-addToCart("dog")
-print(cart)
 
 #create combinations of similar items from other department
 from itertools import combinations
@@ -178,16 +181,90 @@ import random
 #Returns a list of suggested products
 def showSuggestions():
   #create combinations of everythig set
-  result = combinations(everything, 5)
+  result = combinations(Data.getEverything(), 5)
   #randomly print one combination to the user
-  print("People also bought ")
+  print("\n====================================\n")
+  print("\n ~~~~~~~People also bought: ~~~~~~~~\n ")
   #print("Number of combinations", len(list(result)))
   #change hardcoded ma to the length of combinations
   randomSuggestion = random.randint(1,1533939-1)
   #print(list(result)[randomSuggestion])
   #for l in list(result):
 	 # print(l)
-  return list(result)[150001]
+
+  return list(result)[randomSuggestion]
+
+def offerLottery():
+  print("\n==========================================\n")
+  print("**********Congratulations! *************\nToday you get a chance to win one free item from our online store.\n\nWould you like to see what the each item probability of winning is before your play the lottery? \nPlease enter Yes or No\n")
+  choice = int(input("\n1. Yes\n2. No \n\n"))
+  while(choice == None):
+    if choice == 1:
+      #show calculated probabilities
+      print("The probability of winning each item is: \n")
+      calcProbabils()
+    if choice == 2:
+      print("It's OK, You did not miss much =)")
+      checkOutCart()
+    else:
+      print("Valid selections are 1  and 2. Please enter one of them")
+      #userModule.checkOutCart()
+
+import random
+#Generates permutations of the usernames
+from itertools import permutations
+
+
+def createUserName():
+  print("\n\n~~~~~ We will create a user name for you ~~~~~\n")
+  firstName = str(input("Please enter yoru user name: "))
+  lastName = str(input("\nPlease enter yoru first name: "))
+  superHero = str(input("\nWhat is your favourite superhero? "))
+  #later add the number to the permutations of the username
+  numPermuts = permutations(range(50))
+
+  userName = {firstName, lastName, superHero}
+
+  userNamesPermuts = list(permutations(userName))
+  #print("Length pf permutations", len(list(userNamesPermuts)))
+  print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+  print("These are possible user names permutations  for you: \n")
+  print("Please choose one: \n")
+
+  count = 0
+  for i in userNamesPermuts:
+    count += 1
+    print(count, i)
+  #permutsList = list(userNamesPermuts)
+  #print("Length of permutations", len(userNamesPermuts))
+  choice = int(input("\nYour choice: \n"))
+  userNameWords = userNamesPermuts[choice - 1]
+  print(userNameWords)
+  userName = ""
+  for word in userNameWords:
+    userName += word
+    userName += str(random.randint(0, 50))
+
+  print("\nYour user name will be :  ")
+  print(40 * "*")
+  print("*", 7*" ", userName, 7*" ", "*")
+  print(40 * "*")
+  #print("UserNameList", userNamesList)
+
+
+def calcProbabils():
+#calculate each probabilty in current inventory
+  inventory = Data.getInventory()
+  totalQuantity = sum(inventory.values())
+  #print(totalQuantity) - test
+  print("\n~~~~Probabilities to win each item on sale are~~~~~\n")
+  print(70 * "-")
+  for i in inventory:
+    prob = str(round(inventory.get(i)/totalQuantity, 2)* 100) + "%"
+
+    print(i, " -- ", prob)
+    #pp.pprint(i)
+    #pp.pprint(prob)
 
 #retur void just removes
 def removeFromCart(item):
@@ -195,5 +272,72 @@ def removeFromCart(item):
 
 
 
-def getEverything():
-  return everything
+#category = set(makeSelection())
+
+def addToCart():
+  inp = input(str("Please enter items you want to add to your cart separated by come and one space \n\n"))
+  category = set(makeSelection())
+  items  = list(map(str, inp.split(", ")))
+  everything = Data.getEverything()
+
+  #print("Items", items)
+  #loop through items
+  for item in items:
+    if item in category:
+      cart.add(item);
+    else:
+      if item in everything:
+        print("This item is in other department but we still can add it to your cart ")
+        cart.add(item)
+      else:
+        print("Incorrect item")
+      #substract from the inventory
+  print("\n~~~~~~~~~~ Your cart: ~~~~~~~~~~~~\n", cart)
+  print(40*"~")
+
+
+#def checkOutCart():
+ # print("\n Please kindly review your cart: \n\n")
+
+  #pp.pprint(cart)
+  #print("\n==========================================\n")
+
+
+#checkOutCart()
+def createPassword():
+  password = str(input("Please enter your password and we will encode it: "))
+  #encode(password)
+  print("\nYour encoded password is: ", encode(password))
+
+def checkOut():
+  isReady = int(input("Are you ready to to proceed further? Please enter 1 or 2:   \n1. Yes \n2. No\n"))
+
+  if isReady == 1:
+    createUserName()
+    createPassword()
+  else:
+    welcomeMessage()
+
+#-------------------------
+def showItemsInCateg():
+  #category = set(userModule.makeSelection())
+  category = set(makeSelection())
+  print("\nHere is what store has to offer you in the section you chose: \n")
+  pp.pprint(set(category))
+#-------------------------
+
+
+def store():
+  if makeSelection() is not None:
+    showItemsInCateg()
+    addToCart()
+    #checkOutCart()
+    pp.pprint(showSuggestions())
+    checkOut()
+    offerLottery()
+    print("\n==========================================\n")
+
+  else:
+    print("~~~~~~~~~~~~ Goodbye! ~~~~~~~~~~~~~~~\n")
+    print("~~~ If you want to come back, please press Run button ~~~\n")
+    print(80 * "=")
