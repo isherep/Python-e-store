@@ -16,6 +16,11 @@ def welcomeMessage():
   print(10*" ", "Welcome to Iryna's School Supply store!");
   print( 20*"~~~~")
   print(20 * "<*>-")
+  print("\nWe created this cool Binary Search Tree of a merchandize by price and would like\
+        to show you its inorder traversal whick will sort items by price\n")
+  print(20 * "<*>-")
+  showBinaryTree()
+  print("\n", 20 * "<*>-")
   #print("\nLet us know what brings you here. Please choose one of the following\n")
 
 
@@ -27,6 +32,7 @@ def convertCurr():
       bitcoins = convertCurrency(currentInput)
       print("\nYou have ", bitcoins, " in your budget.")
       print("\n-------------------------------------\n")
+      return bitcoins
       break
     elif choice == 2:
       print("\nNo worries, you will be able to do it during the payment process. Just remmember the prices are in bitcoins")
@@ -36,7 +42,6 @@ def convertCurr():
       #choice = input("Would you like to convert your US dollars? \n1. Yes \n2. Not right now \n")
 
 
-from itertools import chain
 
 def printSelection():
   print("\nLet us know what brings you here. Please choose one of the following\n")
@@ -120,6 +125,13 @@ fibonRecursive(n)
 #call encrypt password(password)
 #fibonacchi = []
 
+
+def checkOutCart():
+  print("\n Please kindly review your cart: \n\n")
+
+  pp.pprint(cart)
+  print("\n==========================================\n")
+
 def storeInAlphabet():
 
   alphabet = []
@@ -160,7 +172,7 @@ def encode(password):
   #testing the coded characters
   print(digitArray)
   codeArr= np.array(digitArray)
-  product = np.prod(codeArr)
+  product = np.sum(codeArr)
   return product
   #return digitArray
 
@@ -194,21 +206,58 @@ def showSuggestions():
 
   return list(result)[randomSuggestion]
 
+def processCard():
+    #calculate total of items in the cart
+    #find the prices for the keys in themap
+    total = 0
+    for i in cart:
+        #find a value from a key in that dicitonary using Everything dictionary 
+        price = Data.getEverything().get(i)
+        total +=price
+        #print(price, total)
+       
+    print("\n\n",50 * "=")
+    print("\nYour total is: ", total, " bitcoins")
+    
+    print("\n\n",50 * "=")
+    cartInfo = str(input("\nPlease provide card number, expiration date, and zipcode separated by comas\n"))
+    cartInfoNums = cartInfo.split(',')
+    
+    cartNum = cartInfoNums[0]
+    expDate = cartInfoNums[1]
+    zipCode = cartInfoNums[2]
+    
+    if len(cartNum) == 16 and len(expDate) == 5 and len(zipCode) == 5:
+        print("\nYour order has been processes. \n")
+        print("Thank you for your purchase! ")
+        print(50*"*")
+    else:
+        print("Please enter card information again")
+        
+    
+    
+
 def offerLottery():
   print("\n==========================================\n")
-  print("**********Congratulations! *************\nToday you get a chance to win one free item from our online store.\n\nWould you like to see what the each item probability of winning is before your play the lottery? \nPlease enter Yes or No\n")
+  print("**********Congratulations! *************\nToday you get a chance to win one free item from our online store.\
+        \n\nWould you like to see what the each item probability of winning is before your play the lottery? \
+        \nPlease enter 1 or 2\n")
   choice = int(input("\n1. Yes\n2. No \n\n"))
-  while(choice == None):
-    if choice == 1:
-      #show calculated probabilities
-      print("The probability of winning each item is: \n")
-      calcProbabils()
-    if choice == 2:
-      print("It's OK, You did not miss much =)")
-      checkOutCart()
-    else:
-      print("Valid selections are 1  and 2. Please enter one of them")
-      #userModule.checkOutCart()
+  #while(choice == None):
+  if choice == 1:
+  #show calculated probabilities
+    print("The probability of winning each item is: \n")
+    calcProbabils()
+    processCard()
+  if choice == 2:
+    print("It's OK, You did not miss much =)")
+    checkOutCart()
+    processCard()
+    
+        
+  else:
+    print("Valid selections are 1  and 2. Please enter one of them")
+  #userModule.checkOutCart()
 
 import random
 #Generates permutations of the usernames
@@ -282,27 +331,32 @@ def addToCart():
 
   #print("Items", items)
   #loop through items
+  total = 0
   for item in items:
     if item in category:
       cart.add(item);
+      total += everything.get(item)
     else:
       if item in everything:
         print("This item is in other department but we still can add it to your cart ")
         cart.add(item)
+        total += everything.get(item)
       else:
         print("Incorrect item")
       #substract from the inventory
   print("\n~~~~~~~~~~ Your cart: ~~~~~~~~~~~~\n", cart)
+  print("Total" , total)
   print(40*"~")
-
 
 #def checkOutCart():
  # print("\n Please kindly review your cart: \n\n")
 
-  #pp.pprint(cart)
+ # pp.pprint(cart)
   #print("\n==========================================\n")
 
-
+def showBinaryTree():
+    tree = Data.getBinaryTree()
+    Data.inorder(tree)
 #checkOutCart()
 def createPassword():
   password = str(input("Please enter your password and we will encode it: "))
@@ -316,16 +370,26 @@ def checkOut():
     createUserName()
     createPassword()
   else:
-    welcomeMessage()
+    #welcomeMessage()
+    #show the merchendise again
+    print("\nYou are welcome to shot some more. Here is all the categories: \n")
+    printSelection()
+    
+    makeSelection()
+    #shw merchandize in selection
+    showItemsInCateg()
+    addToCart()
+    
 
 #-------------------------
 def showItemsInCateg():
   #category = set(userModule.makeSelection())
-  category = set(makeSelection())
+  category = makeSelection()
   print("\nHere is what store has to offer you in the section you chose: \n")
-  pp.pprint(set(category))
+  pp.pprint(category)
 #-------------------------
 
+    
 
 def store():
   if makeSelection() is not None:
@@ -333,6 +397,25 @@ def store():
     addToCart()
     #checkOutCart()
     pp.pprint(showSuggestions())
+    #ask if the customer likes any of suggestion and wold like to add them
+    # to a cart or withlist
+    #print("Would you like to any of these to the cart?\n 1.Yes \n2.No\n")
+    everything = Data.getEverything()
+    result = int(input("Would you like to any of these to the cart?\n1.Yes \n2.No\n"))
+    if(result == 1):
+        selected= str(input("Please print which item you would like to add to the cart: \n"))
+        items  = list(map(str, selected.split(", ")))
+        for item in items:
+            if item in everything:
+                cart.add(item);
+            print("Items have beed added to your cart")
+            print(cart)
+    if(result ==2):
+        print("Thank you, lets move to the next step\n") 
+        print("***Your cart: ***\n")
+        pp.pprint(cart)
+            
+    
     checkOut()
     offerLottery()
     print("\n==========================================\n")
