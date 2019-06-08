@@ -72,9 +72,21 @@ inventoryLottery = {
 
 }
 
+
+
 electronics = laptops.keys() | devicesAndPrinters.keys()
 allStationary = stationary.keys() | pensAndPensils.keys()|markersAndHighlighters.keys()
 
+#find our intersection of Laptops and All electronics
+# Set difference: take a and remove elements in b
+#diff = a - b
+#print(diff)
+
+
+#Set intersection 
+otherElectronics = electronics - laptops.keys()
+
+print("\nOther electronics besides laptops are ",otherElectronics)
 
 
 ##union of dicionaries
@@ -209,5 +221,8 @@ def getAllStationary():
 
 def getInventoryLottery():
   return inventoryLottery
+#Return Set intersection 
+def getOtherElectronics():
+    return otherElectronics
 #------------------------
   

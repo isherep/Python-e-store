@@ -5,6 +5,8 @@ import Data
 choice =0
 pp = pprint.PrettyPrinter(indent=3)
 
+laptops = Data.getLaptops()
+
 
 #print(type(textbooks))
 
@@ -325,6 +327,15 @@ def removeFromCart(item):
 def addToCart():
   inp = input(str("Please enter items you want to add to your cart separated by come and one space \n\n"))
   category = set(makeSelection())
+  #print("Category is ", category)
+  
+  
+  #Set intersection 
+  if category == set(Data.getLaptops()):
+      print("\nThese are the other electronic items that are \
+            not in the Laptops category\n")
+      pp.pprint(Data.getOtherElectronics())
+      
   items  = list(map(str, inp.split(", ")))
   everything = Data.getEverything()
 
