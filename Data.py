@@ -61,7 +61,7 @@ paperAndPrintingSupps = {"Copy Paper": 3.99,
                          }
 
 
-inventory = {
+inventoryLottery = {
   "Introduction to Programming": 20,
   "MySQL": 13,
   "Web Development" : 21,
@@ -79,7 +79,7 @@ allStationary = stationary.keys() | pensAndPensils.keys()|markersAndHighlighters
 
 ##union of dicionaries
 allStationary2 = {**stationary,**pensAndPensils, **markersAndHighlighters} 
-print("Merged dicionaries", allStationary2)
+#print("Merged dicionaries", allStationary2)
 #set of all items in the store
 #The method keys() returns a list of all the available keys in the dictionary.
 #everything = set.union(set(textbooks.keys()), set(stationary.keys()), set(pensAndPensils.keys()), set(laptops.keys()), set(markersAndHighlighters.keys()), set(devicesAndPrinters.keys()),set( paperAndPrintingSupps.keys()))
@@ -141,7 +141,7 @@ def getEverything():
   return everything
 # Lets create our BST to the right
 array = getEverything()
-print(array.get("Web Development"))
+#print(array.get("Web Development"))
 
 root1 = Node(array.get("Web Development"), "Web Development")  # root
 
@@ -164,8 +164,8 @@ def getBinaryTree():
 tree = getBinaryTree()
 #prints None currently
 
-print("InOrder Traversal of Get Binary Tree ")
-postorder(tree)
+#print("InOrder Traversal of Get Binary Tree ")
+#postorder(tree)
 
 #printBinaryTree()
 
@@ -176,11 +176,11 @@ def getTextbooks():
   #return list(textbooks)
   return textbooks;
 
-print("Textbook dictionary ", getTextbooks())
+#print("Textbook dictionary ", getTextbooks())
 
 def getStationary():
   return stationary
-print("All stationary ", getStationary())
+#print("All stationary ", getStationary())
 
 def getPensAndPensils():
   return pensAndPensils
@@ -207,7 +207,7 @@ def getAllStationary():
 
 
 
-def getInventory():
-  return inventory
+def getInventoryLottery():
+  return inventoryLottery
 #------------------------
   
