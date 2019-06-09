@@ -95,9 +95,8 @@ allStationary2 = {**stationary,**pensAndPensils, **markersAndHighlighters}
 #set of all items in the store
 #The method keys() returns a list of all the available keys in the dictionary.
 #everything = set.union(set(textbooks.keys()), set(stationary.keys()), set(pensAndPensils.keys()), set(laptops.keys()), set(markersAndHighlighters.keys()), set(devicesAndPrinters.keys()),set( paperAndPrintingSupps.keys()))
+
 everything = {**textbooks, **stationary, **pensAndPensils, **laptops, **markersAndHighlighters, **devicesAndPrinters, **paperAndPrintingSupps}
-
-
 #-------------BINARY TREE OF MERCHANDISE-------------------
 
 #Creating binary tree
