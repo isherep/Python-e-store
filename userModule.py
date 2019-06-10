@@ -214,23 +214,36 @@ def processCard():
     print("\nYour total is: ", total, " bitcoins")
     
     print("\n\n",50 * "=")
-    cartInfo = str(input("\nPlease provide card number, expiration date, and zipcode separated by comas, NO SPACES\n"))
-    cartInfoNums = cartInfo.split(',')
-    
-    cartNum = cartInfoNums[0]
-    expDate = cartInfoNums[1]
-    zipCode = cartInfoNums[2]
-    
-    if len(cartNum) == 16 and len(expDate) == 5 and len(zipCode) == 5:
-        print("\nYour order has been processes. \n")
-        print(15 * "<*>-")
-        print("\nThank you for your purchase! \n")
-        print(15 * "<*>-")
-        print(70*"=")
-    else:
-        print("Please enter card information again")
-        
-    
+    #precondition cart info from invalie inputs
+    #cartInfo = "-1"
+    cartInfo = ""
+    while len(cartInfo) < 26:
+        #cartInfo = str(input("\nPlease provide card number, expiration date, and zipcode separated by comas, NO SPACES\n"))
+        #len(cartNum) != 16 and len(expDate) != 5 and len(zipCode) != 5:
+        cartInfo = input("\nPlease provide card number, expiration date, and zipcode separated by comas, NO SPACES\n")
+        #try:
+            #cartInfo
+            #cartInfo = str(input("\nPlease provide card number, expiration date, and zipcode separated by comas, NO SPACES\n"))
+        cartInfoNums = cartInfo.split(',')
+            #no need for these
+            #cartNum = cartInfoNums[0]
+           # expDate = cartInfoNums[1]
+            #zipCode = cartInfoNums[2]
+            
+            #if len(cartNum) == 16 and len(expDate) == 5 and len(zipCode) == 5:
+    print("\nYour order has been processes. \n")
+    print(15 * "<*>-")
+    print("\nThank you for your purchase! \n")
+    print(15 * "<*>-")
+    print(70*"=")
+           # else:
+               # print("Please enter card information again")
+'''
+except ValueError:
+  cartInfo = ""
+  print("\nPlease enter valid 16 digits card number, exp date and zip code\n")
+  continue
+'''
     
 
 def offerLottery():
