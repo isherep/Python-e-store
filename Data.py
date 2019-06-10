@@ -86,7 +86,7 @@ allStationary = stationary.keys() | pensAndPensils.keys()|markersAndHighlighters
 #Set intersection 
 otherElectronics = electronics - laptops.keys()
 
-print("\nOther electronics besides laptops are ",otherElectronics)
+#print("\nOther electronics besides laptops are ",otherElectronics)
 
 
 ##union of dicionaries
@@ -209,7 +209,7 @@ def getPaperAndPrintingSupps():
   return paperAndPrintingSupps
 
 
-#------------
+#---------Getting categories based on Set's operations 
 def getElectronics():
   return electronics
 

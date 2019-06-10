@@ -27,22 +27,28 @@ def welcomeMessage():
 
 
 def convertCurr():
-  choice = int(input("\nWould you like to convert your US dollars? \n1. Yes \n2. Not right now \n\n"))
-  while(choice >=1 and choice <=2 ):
-    if(choice == 1):
-      currentInput = int(input("Tell us how many US dollars you would like to conver to bitcoins \n"))
-      bitcoins = convertCurrency(currentInput)
-      print("\nYou have ", bitcoins, " in your budget.")
-      print("\n-------------------------------------\n")
-      return bitcoins
-      break
-    elif choice == 2:
-      print("\nNo worries, you will be able to do it during the payment process. Just remmember the prices are in bitcoins")
-      break
-    else:
-      print("\nOnly 1(Yes) and 2(No) are valid choices")
-      #choice = input("Would you like to convert your US dollars? \n1. Yes \n2. Not right now \n")
-
+  
+    choice = -1  
+  
+    while choice < 1 or choice > 2:
+        choice = input("\nWould you like to convert your US dollars? \n1. Yes \n2. Not right now \n\n")
+        try:
+            choice = int(choice)
+            if(choice == 1):
+              currentInput = int(input("Tell us how many US dollars you would like to conver to bitcoins \n"))
+              bitcoins = convertCurrency(currentInput)
+              print("\nYou have ", bitcoins, " in your budget.")
+              print("\n-------------------------------------\n")
+              return bitcoins
+              #break
+            elif choice == 2:
+              print("\nNo worries, you will be able to do it during the payment process. Just remmember the prices are in bitcoins")
+             # break
+        except ValueError:
+              choice = -1
+              print("\nOnly 1(Yes) and 2(No) are valid choices\n")
+              continue       
+   
 
 
 def printSelection():
@@ -53,26 +59,35 @@ def printSelection():
 #Returns selected catogory's set of merchandise
 def makeSelection():
   #choice = printSelection()
-  #choice = 0
-  choice = int(input("Please select one: "))
-  while choice !=0:
+  choice = -1
+  
+  while choice < 0 or choice > 10:
+      choice = input("Please select one: ")
+      try:
+          choice = int(choice)
+          
   #while True:
     #choice = int(input("Please select one: "))
-    switcher = {
-      1: Data.getTextbooks(),#show set of textbooks
-      2: Data.getStationary(), #show set of Stationary
-      3: Data.getPensAndPensils(), #show set of Pends and pensils
-      4: Data.getLaptops(),#show set of Laptops
-      5: Data.getMarkersAndHighlighters(),#show set of markers and highlighters
-      6: Data.getDevicesAndPrinters(),#show set of computers and printers
-      7: Data.getPaperAndPrintingSupps(),#show  set of paper and printing supplies
-      8: Data.getElectronics(),#show a Union of computers and laptops
-      9: Data.getAllStationary(),#union of Stationary and pens and pencils
-      10: Data.getEverything(),
-      0: set({})
-    }
-    #
-    return switcher.get(choice)
+          switcher = {
+              1: Data.getTextbooks(),#show set of textbooks
+              2: Data.getStationary(), #show set of Stationary
+              3: Data.getPensAndPensils(), #show set of Pends and pensils
+              4: Data.getLaptops(),#show set of Laptops
+              5: Data.getMarkersAndHighlighters(),#show set of markers and highlighters
+              6: Data.getDevicesAndPrinters(),#show set of computers and printers
+              7: Data.getPaperAndPrintingSupps(),#show  set of paper and printing supplies
+              8: Data.getElectronics(),#show a Union of computers and laptops
+              9: Data.getAllStationary(),#union of Stationary and pens and pencils
+              10: Data.getEverything(),
+              0: set({})
+            }
+            #
+          return switcher.get(choice)
+      except ValueError:
+          choice = -1
+          print("\nPlease enter numbers only\n")
+          continue
+      
 
 
 
@@ -236,41 +251,40 @@ def processCard():
     print("\nThank you for your purchase! \n")
     print(15 * "<*>-")
     print(70*"=")
-           # else:
-               # print("Please enter card information again")
-'''
-except ValueError:
-  cartInfo = ""
-  print("\nPlease enter valid 16 digits card number, exp date and zip code\n")
-  continue
-'''
-    
+           
 
 def offerLottery():
   print("\n==========================================\n")
   print("**********Congratulations! *************\nToday you get a chance to win one free item from our online store.\
         \n\nWould you like to see what the each item probability of winning is before your play the lottery? \
         \nPlease enter 1 or 2\n")
-  choice = int(input("\n1. Yes\n2. No \n\n"))
-  
-  #while(choice == None):
-  if choice == 1:
-  #show calculated probabilities
-    #print("The probability of winning each item is: \n")
-    calcProbabils()
-    
-    #choose the item randomly
-    inventoryLottery = list(Data.getInventoryLottery())
-    totalQuantity = len(inventoryLottery)
-    ranItem = random.randint(1,totalQuantity)
-    itemWon = inventoryLottery[ranItem]
-    print("\n", 40 * "=", "\n")
-    print("*** You have won the item: ", itemWon, "***")
-    #processCard()
-  if choice == 2:
-    print("It's OK, You did not miss much =)")
-    checkOutCart()
-    #processCard()
+  #choice = int(input("\n1. Yes\n2. No \n\n"))
+  choice = -1
+  while choice < 1 or choice > 2:
+      choice = input("\n1. Yes\n2. No \n\n")
+      try:
+          choice = int(choice)
+          if choice == 1:
+          #show calculated probabilities
+            #print("The probability of winning each item is: \n")
+            calcProbabils()
+            
+            #choose the item randomly
+            inventoryLottery = list(Data.getInventoryLottery())
+            totalQuantity = len(inventoryLottery)
+            ranItem = random.randint(1,totalQuantity)
+            itemWon = inventoryLottery[ranItem]
+            print("\n", 40 * "=", "\n")
+            print("*** You have won the item: ", itemWon, "***")
+            #processCard()
+          if choice == 2:
+            print("It's OK, You did not miss much =)")
+            checkOutCart()
+            #processCard()
+      except ValueError:
+          choice = -1
+          print("\nPlease enter numbers 1 or 2 only\n")
+          continue            
            
   else:
     print("\nValid selections are 1  and 2. Please enter one of them")
@@ -429,7 +443,7 @@ def showItemsInCateg(category):
 
 def store():
   category = makeSelection()
-  if makeSelection() is not None:
+  if category is not None:
     showItemsInCateg(category)
     addToCart(category)
     #checkOutCart()
